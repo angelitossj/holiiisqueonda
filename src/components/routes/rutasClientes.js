@@ -12,15 +12,15 @@ getClienteId
 
 
 }=require("../controllers/controladorCliente")
-
+const ValidarCliente=(require('../middlewares/validar-cliente'))
 
 
 router.get("/cliente",getCliente)
 router.post("/cliente",postCliente)
 router.get("/cliente",getCliente)
 router.get("/cliente/:idCliente",getClienteId)
-router.put("/cliente/:idCliente",putCliente)
-router.delete("/cliente/:idCliente",deleteCliente)
+router.put("/cliente/:idCliente",[ValidarCliente],putCliente)
+router.delete("/cliente/:idCliente",[ValidarCliente],deleteCliente)
 // router.delete("/Cliente/:idCliente",[validarJWT],deleteCliente)
 
 

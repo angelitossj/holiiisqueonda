@@ -10,23 +10,30 @@ const publicacionesSchema = new Schema({
         type: String,
         required: true
     },
-
-
-    isActive: {
-        type: Boolean,
-        default: true
-
+    categoria: {
+        type: String,
+        required: true
     },
+    productos: {
+        type: [{}]
+    },
+
+
+    // isActive: {
+    //     type: Boolean,
+    //     default: true
+
+    // },
     idCliente: {
         type: Schema.ObjectId,
         ref: 'cliente',
         required: true
     },
-    idProducto: {
-        type: [Schema.ObjectId],
-        ref: 'producto',
-        required: true
-    }
+    // idProducto: {
+    //     type: [Schema.ObjectId],
+    //     ref: 'producto',
+    //     required: true
+    // }
 
 
 

@@ -28,6 +28,8 @@ app.use(require('./components/routes/rutasClientes'))
 app.use(require('./components/routes/rutasProveedores'))
 app.use(require('./components/routes/authProveedores'))
 app.use(require('./components/routes/rutasProductos'))
+app.use(require('./components/routes/rutasPublicaciones'))
+app.use(require('./components/routes/authCliente'))
 
 
 // Iniciar servidor

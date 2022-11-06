@@ -94,7 +94,7 @@ CtrlCliente.postCliente = async (req, res) => {
     try {
         const {
             nombreCliente,
-            nombreUsuario,
+            usuario,
             email,
             password
         } = req.body
@@ -104,7 +104,7 @@ CtrlCliente.postCliente = async (req, res) => {
 
         const newCliente = new Cliente({
             nombreCliente,
-            nombreUsuario,
+            usuario,
             email,
             password: newPassword 
         })
