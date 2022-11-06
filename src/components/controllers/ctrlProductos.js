@@ -8,9 +8,9 @@ CtrlProductos.getProductos = async (req, res) => {
         const producto = await Producto.find({
             active: true
         })
-        if(!producto.length){
+        if (!producto.length) {
             return res.status(404).json({
-                message:"no existe ningun producto"
+                message: "no existe ningun producto"
             })
         }
 
@@ -21,25 +21,55 @@ CtrlProductos.getProductos = async (req, res) => {
 
 
     } catch (error) {
-return res.status(404).json({error: error.message})
+        return res.status(404).json({
+            error: error.message
+        })
     }
 
 
 }
+CtrlProductos.getProductosById = async (req, res) => {
+    try {
+        const idProducto = req.params.idProductos
+        const producto = await Producto.findOne({
+            $and: [{
+                _id: idProducto
+            }]
+        })
+        .populate('idProveedor',['nombreOrazonSocial'])
+        //,{isActive: true}
+        if (producto)  {
+            return res.json({
+                message: 'el producto se ha encontrado con exito',
+                producto
+            })
+        }
+
+
+    } catch (error) {
+        return res.status(404).json({
+            message: "",
+            error:error.message
+        })
+    }
+
+
+}
+
 CtrlProductos.getProductosIdProveedor = async (req, res) => {
     try {
         const idProveedor = req.proveedores._id
         console.log(idProveedor)
-        if (!idProveedor){
+        if (!idProveedor) {
             return res.json({
-                message:"no viene el id del proveedor"
+                message: "no viene el id del proveedor"
             })
         }
         const producto = await Producto.find({
-                idProveedor 
+                idProveedor
             })
-            .populate('idProveedor', ['nombreOrazonsocial',"paisOrigen"])
-            
+            .populate('idProveedor', ['nombreOrazonsocial', "paisOrigen"])
+
 
         if (!producto.length) {
             return res.status(404).json({
@@ -65,106 +95,127 @@ CtrlProductos.postProducto = async (req, res) => {
         const idProveedor = req.proveedores._id
         const {
             nombreProducto,
-                categorias,
-                marca,
-                fechaVencimiento,
-                paisOrigen
-            
+            categorias,
+            marca,
+            fechaVencimiento,
+            paisOrigen
+
         } = req.body
-        if (!idProveedor ||!nombreProducto || !categorias || !marca || !fechaVencimiento || !paisOrigen) {
+        if (!idProveedor || !nombreProducto || !categorias || !marca || !fechaVencimiento || !paisOrigen) {
             return res.status(400).json({
                 message: "La informacion proporcionada es incorrecta"
             })
         }
 
         const newProducts = new Producto({
-            idProveedor
-            ,nombreProducto,
+            idProveedor,
+            nombreProducto,
             categorias,
             marca,
             fechaVencimiento,
             paisOrigen
         })
-        const productoRegistrado=await newProducts.save()
+        const productoRegistrado = await newProducts.save()
 
         return res.status(201).json({
-            message:"el producto  fue registrado con  exito",
+            message: "el producto  fue registrado con  exito",
             productoRegistrado
         })
 
     } catch (error) {
         res.status(401).json({
-            message:"No se pudo generar el producto",
-            errorBody:error.message,
-            errorName:error.name
+            message: "No se pudo generar el producto",
+            errorBody: error.message,
+            errorName: error.name
         })
     }
 }
 
-CtrlProductos.putProducto =async (req,res) => {
-try {
-    const idTarea=req.params.idTarea
-    const idUser=req.user._id
-const{titulo,descripcion,estado}=req.body
-if(!idUser||!titulo||!descripcion||!estado){
-    return res.status(401).json({
-        message:"La informacion dada es incorrecta"
-    })
-}
-const tarea=await Tareas.findById(idTarea)
-const userIdString=idUser.toString()
-const tareaIdString=tarea.idUser.toString()
-if (!((userIdString === tareaIdString )||req.user.role==='admin_user'))
-{
-    return res.status(403).json({message:"No tiene permiso para editar la tarea"})
-}
-const complete = Tareas.findById(idUser,{estado})
+CtrlProductos.putProducto = async (req, res) => {
+    try {
+        const idProducto = req.params.idProductos
+        const idProveedor = req.proveedores._id
+        const {
+            nombreProducto,
+            categorias,
+            marca,
+            fechaVencimiento,
+            paisOrigen
+        } = req.body
+        if (!idProveedor
+             || !nombreProducto || !categorias || !marca || !fechaVencimiento || !paisOrigen) {
+            return res.status(401).json({
+                message: "La informacion dada es incorrecta"
+            })
+        }
+        const producto = await Producto.findById(idProducto)
+        const userIdString = idProveedor.toString()
+        const tareaIdString = producto.idProveedor.toString()
+        if (!((userIdString === tareaIdString) || req.user.role === 'proveedor')) {
+            return res.status(403).json({
+                message: "No tiene permiso para editar el producto"
+            })
+        }
+  
 
-if(complete="completado"){
-    return res.json({
-        message:"la tarea ya ha sido completada"
-    })
-}
+        await producto.updateOne({
+            nombreProducto,
+            categorias,
+            marca,
+            fechaVencimiento,
+            paisOrigen
+        })
+        return res.status(201).json({
+            message: "El producto fue modificado con exito"
+        })
 
-await tarea.updateOne({titulo,descripcion,estado})
-return res.status(201).json({message:"la tarea fue modificada con exito"})
- 
-}
-
-
-catch (error) {
-}
-
-}
-
-CtrlProductos.deleteProductos = async(req,res) => {
-try {
-    const idUser=req.user._id
-    const idTarea=req.params.idTarea
-    const tareas= await Tareas.findOne({$and:[{_id:idTarea},{isActive:true}]})
-if (!tareas || !tareas.isActive){
-res.status(404).json({message:"No existe la tarea"})
+    } catch (error) {
+        return res.status(404).json({
+            error: error.message
+        })
+    }
 
 }
-    const userIdString=idUser.toString()//recibo el ID que me pasa el validateJWT y lo convierto a STRING
-const tareaIdString=tareas.idUser.toString()//recibo la propiedad idUser de la Task y lo convierto a STRING para luego comparar
-if (!((userIdString === tareaIdString )||req.usuario.role==='admin_user'))
-{
-    res.status(500).json({
-        message:"no posee permiso para eliminar esta tarea",
-        
-    })
-}
-await tareas.updateOne({isActive:false})
-return res.status(201).json({message:"la tarea fue eliminada con exito"})
- 
 
-} catch (error) {
-    res.status(401).json({
-        message:"hubo un error al eliminar la tarea",
-        error:error.message
-    })
-}
+CtrlProductos.deleteProductos = async (req, res) => {
+    try {
+        const idProveedor = req.proveedores._id
+        const idTarea = req.params.idProducto
+        const producto = await Producto.findOne({
+            $and: [{
+                _id: idProveedor
+            }, {
+                isActive: true
+            }]
+        })
+        if (!producto|| !producto.isActive) {
+            res.status(404).json({
+                message: "No existe el producto"
+            })
+
+        }
+        const userIdString = idProveedor.toString() //recibo el ID que me pasa el validateJWT y lo convierto a STRING
+        const tareaIdString = producto.idProveedor.toString() //recibo la propiedad idUser de la Task y lo convierto a STRING para luego comparar
+        if (!((userIdString === tareaIdString) || req.usuario.role === 'proveedor')) {
+            res.status(500).json({
+                message: "no posee permiso para eliminar el producto",
+
+            })
+        }
+        await producto.updateOne({
+            isActive: false
+        })
+        return res.status(201).json({
+            message: "El producto fue eliminado con exito"
+        })
+
+
+    } catch (error) {
+        res.status(401).json({
+            message: "hubo un error al eliminar el producto",
+            error: error.message
+        })
+    }
 
 
 }

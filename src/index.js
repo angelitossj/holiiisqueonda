@@ -2,14 +2,23 @@ const express = require('express')
 const cors =require('cors')
 const morgan = require('morgan')
 const path = require('path')
+const {Server} =require ('socket.io')
+const app = express();
+const http = require('http')
 require('dotenv').config()
+
+const server=http.createServer(app)
+const io = new Server(server,{
+    cors:{
+        origin:'*'
+    }
+})
 const connectDB=require('./conexion')
 
 
 
 connectDB()
 
-const app = express();
 
 
 // configuraciones
@@ -31,8 +40,17 @@ app.use(require('./components/routes/rutasProductos'))
 app.use(require('./components/routes/rutasPublicaciones'))
 app.use(require('./components/routes/authCliente'))
 
-
+io.on('connection',(socket)=>{
+    console.log(socket.id)
+   
+    socket.on('message',(message)=>{
+        socket.broadcast.emit('message',{
+            body:message,
+            from : socket.id
+        })
+    })
+})
 // Iniciar servidor
-app.listen(port, console.log(`
+server.listen(port, console.log(`
     Servidor iniciado en: http://localhost:${port}
 `))

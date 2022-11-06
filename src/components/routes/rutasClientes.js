@@ -15,10 +15,10 @@ getClienteId
 const ValidarCliente=(require('../middlewares/validar-cliente'))
 
 
-router.get("/cliente",getCliente)
-router.post("/cliente",postCliente)
-router.get("/cliente",getCliente)
-router.get("/cliente/:idCliente",getClienteId)
+router.get("/cliente",[ValidarCliente],getCliente)
+router.post("/cliente",[ValidarCliente],postCliente)
+router.get("/cliente",[ValidarCliente],getCliente)
+router.get("/cliente/:idCliente",[ValidarCliente],getClienteId)
 router.put("/cliente/:idCliente",[ValidarCliente],putCliente)
 router.delete("/cliente/:idCliente",[ValidarCliente],deleteCliente)
 // router.delete("/Cliente/:idCliente",[validarJWT],deleteCliente)

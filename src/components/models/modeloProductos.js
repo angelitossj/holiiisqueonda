@@ -23,6 +23,11 @@ const ProductoSchema = new Schema({
         type: String,
         required: true
     },
+    isActive: {
+        type: Boolean,
+        default: true
+
+    },
     idProveedor: {
         type: Schema.ObjectId,
         ref: 'proveedores',
