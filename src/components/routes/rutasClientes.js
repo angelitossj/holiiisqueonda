@@ -13,8 +13,8 @@ getClienteId
 
 }=require("../controllers/controladorCliente")
 const ValidarCliente=(require('../middlewares/validar-cliente'))
-
-
+router.get("/cliente",getCliente)
+router.post("/cliente",postCliente)
 router.get("/cliente",[ValidarCliente],getCliente)
 router.post("/cliente",[ValidarCliente],postCliente)
 router.get("/cliente",[ValidarCliente],getCliente)

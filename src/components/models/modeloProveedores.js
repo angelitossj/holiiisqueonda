@@ -46,6 +46,10 @@ const ProveedoresSchema = new Schema({
         max: 50
 
     },
+    categorias:{
+        type: String,
+        required:true
+    },
     isActive: {
         type: Boolean,
         default: true

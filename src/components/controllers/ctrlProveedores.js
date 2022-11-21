@@ -10,15 +10,41 @@ CtrlCProveedores.getProveedores = async (req, res) => {
     try {
 
 
-        const proveedor = await Proveedores.find({isActive:true})
+        const proveedor = await Proveedores.find(({isActive:true}))
 
     if (!proveedor.length){
         return res.status(404).json({
-            message:"No existe usuario cliente en la base de datos"
+            message:"No existe usuario Proveedor en la base de datos"
         })
     }
         return res.json({
-            message: "Cliente encontrado",
+            message: "Proveedores encontrado",
+            proveedor
+
+        })
+
+    } catch (error) {
+        return res.json({
+            message: "error"
+        })
+    }
+
+
+}
+CtrlCProveedores.getProveedoresCategorias = async (req, res) => {
+    try {
+
+        const categoria=await Proveedores.findOne({categorias:req.params.categorias})
+        
+        const proveedor = await Proveedores.find(({categorias:'Lacteos'}))
+
+    if (!proveedor.length){
+        return res.status(404).json({
+            message:"No existe usuario Proveedor en la base de datos"
+        })
+    }
+        return res.json({
+            message: "Proveedores encontrado",
             proveedor
 
         })
@@ -99,10 +125,18 @@ CtrlCProveedores.postProveedores = async (req, res) => {
             usuario,
             telefono,
             email,
+            categorias,
             password
         } = req.body
 
+        if ( !nombreOrazonSocial ||!cedulaIdentidad || !DomicilioEmpresa ||!telefono || !email ||!usuario || !password ||!categorias) {
+            
+            return res.status(400).json({
+                message: "no viene informacion",
+            
 
+            })
+        }
         const newPassword = bcrypt.hashSync(password, 10)
 
         const newProveedor = new Proveedores({
@@ -112,6 +146,7 @@ CtrlCProveedores.postProveedores = async (req, res) => {
             usuario,
             telefono,
             email,
+            categorias,
             password:newPassword
         })
         
@@ -193,9 +228,7 @@ CtrlCProveedores.putProveedores = async (req, res) => {
 CtrlCProveedores.deleteProveedores = async (req, res) => {
     const id = req.params.id
     try {
-        const proveedor = await Proveedores.updateOne(id, {
-            isActive: false
-        })
+        const proveedor = await Proveedores.updateOne(id,{isActive: false})
         return res.json({
             message: "proveedor eliminado",
 

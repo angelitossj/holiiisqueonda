@@ -8,7 +8,10 @@ const ProductoSchema = new Schema({
         type: String,
         required: true
     },
-    categorias: [{}],
+    categoria: {
+        type: String,
+        required: true
+    },
     marca: {
         type: String,
         required: true

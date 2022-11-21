@@ -6,7 +6,8 @@ postProducto,
 putProducto,
 deleteProductos,
 getProductosIdProveedor,
-getProductosById
+getProductosById,
+getProductosCategorias
 
 
 
@@ -17,6 +18,7 @@ const validarProductos=require('../middlewares/validar-jwt-proveedores')
 
 
 router.get("/productos",[validarProductos],getProductos)
+router.get("/productos/:categorias",[validarProductos],getProductosCategorias)
 router.get("/productos/:idProductos",[validarProductos],getProductosById)
 router.post("/productos",[validarProductos],postProducto)
 router.get("/productos",[validarProductos],getProductos)

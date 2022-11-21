@@ -4,7 +4,7 @@ const {iniciarSesion}=require("../controllers/authCliente")
 
 
 
-router.post("/sesionCliente",iniciarSesion)
+router.post("/log",iniciarSesion)
 
 
 

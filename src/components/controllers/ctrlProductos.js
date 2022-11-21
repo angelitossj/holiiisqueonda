@@ -28,6 +28,29 @@ CtrlProductos.getProductos = async (req, res) => {
 
 
 }
+CtrlProductos.getProductosCategorias = async (req, res) => {
+    try {
+        const producto = await Producto.find({categoria:'Lacteos'})
+        if (!producto.length) {
+            return res.status(404).json({
+                message: "no existe ningun producto"
+            })
+        }
+
+        return res.json({
+            message: "producto encontrado con exito",
+            producto
+        })
+
+
+    } catch (error) {
+        return res.status(404).json({
+            error: error.message
+        })
+    }
+
+
+}
 CtrlProductos.getProductosById = async (req, res) => {
     try {
         const idProducto = req.params.idProductos
@@ -95,13 +118,13 @@ CtrlProductos.postProducto = async (req, res) => {
         const idProveedor = req.proveedores._id
         const {
             nombreProducto,
-            categorias,
+            categoria,
             marca,
             fechaVencimiento,
             paisOrigen
 
         } = req.body
-        if (!idProveedor || !nombreProducto || !categorias || !marca || !fechaVencimiento || !paisOrigen) {
+        if (!idProveedor || !nombreProducto || !categoria || !marca || !fechaVencimiento || !paisOrigen) {
             return res.status(400).json({
                 message: "La informacion proporcionada es incorrecta"
             })
@@ -109,8 +132,8 @@ CtrlProductos.postProducto = async (req, res) => {
 
         const newProducts = new Producto({
             idProveedor,
+            categoria,
             nombreProducto,
-            categorias,
             marca,
             fechaVencimiento,
             paisOrigen
