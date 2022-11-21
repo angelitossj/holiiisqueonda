@@ -1,7 +1,7 @@
 {
   "name": "nuevoservidor",
   "version": "1.0.0",
-  "description": "",
+  "description": "Uso de Nodejs y Express para Servidor",
   "main": "index.js",
   "scripts": {
     "nodemon": "nodemon src/index"
@@ -23,5 +23,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelitossj/holiiisqueonda.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angelitossj/holiiisqueonda/issues"
+  },
+  "homepage": "https://github.com/angelitossj/holiiisqueonda#readme"
 }

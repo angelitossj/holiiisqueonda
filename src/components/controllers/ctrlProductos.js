@@ -120,11 +120,14 @@ CtrlProductos.postProducto = async (req, res) => {
             nombreProducto,
             categoria,
             marca,
-            fechaVencimiento,
-            paisOrigen
+    
+            paisOrigen,
+            precioUnitario,
+            precioMayorista,
+            precioOferta
 
         } = req.body
-        if (!idProveedor || !nombreProducto || !categoria || !marca || !fechaVencimiento || !paisOrigen) {
+        if (!idProveedor || !nombreProducto || !categoria || !marca  || !paisOrigen) {
             return res.status(400).json({
                 message: "La informacion proporcionada es incorrecta"
             })
@@ -135,8 +138,11 @@ CtrlProductos.postProducto = async (req, res) => {
             categoria,
             nombreProducto,
             marca,
-            fechaVencimiento,
-            paisOrigen
+            paisOrigen,
+            precioUnitario,
+             precioMayorista,
+             precioOferta
+            
         })
         const productoRegistrado = await newProducts.save()
 

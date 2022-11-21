@@ -18,14 +18,13 @@ const ProductoSchema = new Schema({
 
     },
 
-    fechaVencimiento: {
-        type: String,
-        required: true
-    },
     paisOrigen: {
         type: String,
         required: true
     },
+    precioUnitario: { type: String, required: true },
+    precioMayorista: { type: String, required: true },
+    precioOferta: { type: String, required: true },
     isActive: {
         type: Boolean,
         default: true
@@ -49,4 +48,4 @@ const ProductoSchema = new Schema({
 })
 
 
-module.exports = model("usuario", ProductoSchema)
+module.exports = model("productos", ProductoSchema)
