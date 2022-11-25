@@ -1,6 +1,6 @@
 const Proveedores =require("../models/modeloProveedores")
 
-const generarJWT=require("../helpers/generar-jwt")
+const generarJWT= require("../helpers/generar-jwt")
 const bcrypt=require('bcrypt')
 
 const CtrlAuth={}
@@ -24,13 +24,13 @@ try {
         })
     }
 // verificar la contraseña
-const validPassword=bcrypt.compareSync(password,proveedor.password)
+// const validPassword =  bcrypt.compareSync(password,proveedor.password)
 
-if (!validPassword){
-    return res.status(400).json({
-        message:"Error el autenticarse, Contraseña incorrecta"
-    })
-}
+// if (!validPassword){
+//     return res.status(400).json({
+//         message:"Error el autenticarse, Contraseña incorrecta"
+//     })
+// }
 // generamos el token
 const token =await generarJWT({uid:proveedor.id})
 return res.json({message:"Has iniciado sesion con exito",

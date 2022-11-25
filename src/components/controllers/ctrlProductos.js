@@ -122,7 +122,7 @@ CtrlProductos.postProducto = async (req, res) => {
             nombreProducto,
             categoria,
             marca,
-    
+            imagen,
             paisOrigen,
             precioUnitario,
             precioMayorista,
@@ -140,6 +140,7 @@ CtrlProductos.postProducto = async (req, res) => {
             categoria,
             nombreProducto,
             marca,
+            imagen,
             paisOrigen,
             precioUnitario,
              precioMayorista,
