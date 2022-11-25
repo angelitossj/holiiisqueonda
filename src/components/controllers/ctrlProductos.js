@@ -30,7 +30,8 @@ CtrlProductos.getProductos = async (req, res) => {
 }
 CtrlProductos.getProductosCategorias = async (req, res) => {
     try {
-        const {categoria} = req.query.categoria
+        const categoria = req.query.categoria
+        console.log(categoria)
         const producto = await Producto.find({categoria})
         if (!producto.length) {
             return res.status(404).json({
