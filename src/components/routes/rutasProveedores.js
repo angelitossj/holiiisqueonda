@@ -5,7 +5,8 @@ getProveedores,
 postProveedores,
 putProveedores,
 deleteProveedores,
-getProveedoresCategorias
+getProveedoresCategorias,
+getProveedoresId
 
 
 
@@ -16,10 +17,10 @@ const validarProveedores=require('../middlewares/validar-jwt-proveedores')
 
 
 router.get("/proveedores",getProveedores)
+router.get("/proveedores/:idProveedor",getProveedoresId)
 
-router.get("/proveedores/:categorias",getProveedoresCategorias)
+router.get("/proveedores",getProveedoresCategorias)
 router.post("/proveedores",postProveedores)
-router.get("/proveedores",getProveedores)
 router.get("/proveedores/:idProveedores",getProveedores)
 router.put("/proveedores/:idProveedores",[validarProveedores],putProveedores)
 router.delete("/proveedores/:idProveedores",deleteProveedores)

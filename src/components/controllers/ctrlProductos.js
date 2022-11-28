@@ -5,9 +5,7 @@ const CtrlProductos = {}
 
 CtrlProductos.getProductos = async (req, res) => {
     try {
-        const producto = await Producto.find({
-            active: true
-        })
+        const producto = await Producto.find({isActive:true})
         if (!producto.length) {
             return res.status(404).json({
                 message: "no existe ningun producto"

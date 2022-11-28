@@ -33,10 +33,11 @@ CtrlCProveedores.getProveedores = async (req, res) => {
 }
 CtrlCProveedores.getProveedoresCategorias = async (req, res) => {
     try {
-
-        const categoria=await Proveedores.findOne({categorias:req.params.categorias})
+        const categorias = req.query.categorias
+        console.log(categorias)
+        // const categoria=await Proveedores.findOne({categorias})
         
-        const proveedor = await Proveedores.find(({categorias:'Lacteos'}))
+        const proveedor = await Proveedores.find(({categorias}))
 
     if (!proveedor.length){
         return res.status(404).json({
@@ -89,7 +90,7 @@ CtrlCProveedores.getProveedoresCategorias = async (req, res) => {
 
 CtrlCProveedores.getProveedoresId = async (req, res) => {
     try {
-        const idProveedor = req.params.idCliente
+        const idProveedor = req.params.idProveedor
         const proveedor = await Proveedores.findOne({
             $and: [{
                 _id: idProveedor
@@ -107,8 +108,7 @@ CtrlCProveedores.getProveedoresId = async (req, res) => {
 
     } catch (error) {
         return res.status(404).json({
-            message: "",
-            error
+           error: error.message
         })
     }
 

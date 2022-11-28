@@ -24,13 +24,13 @@ try {
         })
     }
 // verificar la contraseña
-const validPassword=bcrypt.compareSync(password,cliente.password)
+// const validPassword=bcrypt.compareSync(password,cliente.password)
 
-if (!validPassword){
-    return res.status(400).json({
-        message:"Error el autenticarse, Contraseña incorrecta"
-    })
-}
+// if (!validPassword){
+//     return res.status(400).json({
+//         message:"Error el autenticarse, Contraseña incorrecta"
+//     })
+// }
 // generamos el token
 const token =await generarJWT({uid:cliente.id})
 return res.json({message:"Has iniciado sesion con exito",
