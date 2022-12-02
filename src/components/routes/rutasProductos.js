@@ -17,7 +17,7 @@ getProductosCategorias
 const validarProductos=require('../middlewares/validar-jwt-proveedores')
 
 
-router.get("/productos",getProductos)
+router.get("/product",getProductos)
 router.get("/productos",getProductosCategorias)
 router.get("/productos/:idProductos",[validarProductos],getProductosById)
 router.post("/productos",[validarProductos],postProducto)

@@ -1,6 +1,5 @@
 const Proveedores = require("../models/modeloProveedores")
-const bcrypt = require('bcrypt')
-
+const bcrypt =require('bcrypt')
 const validator=require('validator')
 
 const CtrlCProveedores = {}

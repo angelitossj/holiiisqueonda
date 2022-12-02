@@ -1,7 +1,7 @@
 const Proveedores =require("../models/modeloProveedores")
 
 const generarJWT= require("../helpers/generar-jwt")
-const bcrypt=require('bcrypt')
+
 
 const CtrlAuth={}
 

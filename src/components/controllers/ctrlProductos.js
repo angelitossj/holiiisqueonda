@@ -5,13 +5,16 @@ const CtrlProductos = {}
 
 CtrlProductos.getProductos = async (req, res) => {
     try {
+        
         const producto = await Producto.find({isActive:true})
         if (!producto.length) {
             return res.status(404).json({
                 message: "no existe ningun producto"
             })
         }
-
+            const product=producto.filter(productos=>productos.categoria)
+            console.log(product)
+            
         return res.json({
             message: "producto encontrado con exito",
             producto
@@ -91,7 +94,7 @@ CtrlProductos.getProductosIdProveedor = async (req, res) => {
         const producto = await Producto.find({
                 idProveedor
             })
-            .populate('idProveedor', ['nombreOrazonsocial', "paisOrigen"])
+            .populate('idProveedor', ['nombreOrazonSocial', "usuario"])
 
 
         if (!producto.length) {

@@ -1,5 +1,5 @@
 const Cliente = require("../models/modeloCliente")
-const bcrypt = require('bcrypt')
+
 
 const validator=require('validator')
 

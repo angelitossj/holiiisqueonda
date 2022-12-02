@@ -1,7 +1,7 @@
 const Cliente =require("../models/modeloCliente")
 
 const generarJWT=require("../helpers/generar-jwt")
-const bcrypt=require('bcrypt')
+
 
 const CtrlAuth={}
 
