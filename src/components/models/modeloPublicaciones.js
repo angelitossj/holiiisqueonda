@@ -6,17 +6,17 @@ const {
 const publicacionesSchema = new Schema({
 
 
-    descripcion: {
-        type: String,
-        required: true
-    },
-    categoria: {
-        type: String,
-        required: true
-    },
-    productos: {
-        type: [{}]
-    },
+    // descripcion: {
+    //     type: String,
+    //     // required: true
+    // },
+    // categoria: {
+    //     type: String,
+    //     // required: true
+    // },
+    // productos: {
+    //     type: [{}]
+    // },
 
 
     // isActive: {
@@ -24,10 +24,21 @@ const publicacionesSchema = new Schema({
     //     default: true
 
     // },
-    idCliente: {
-        type: Schema.ObjectId,
-        ref: 'cliente',
-        required: true
+    idProveedor: {
+        type: {}
+        
+    },
+    idProducto: {
+        type: {}
+        
+    },
+    cantidad: {
+        type: String
+    },
+
+    nombreProducto: {
+        type: String
+        
     },
     // idProducto: {
     //     type: [Schema.ObjectId],

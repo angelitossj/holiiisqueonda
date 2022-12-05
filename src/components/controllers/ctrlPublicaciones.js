@@ -64,24 +64,25 @@ CtrlPublicaciones.getPublicacionesIdCliente = async (req, res) => {
 
 CtrlPublicaciones.postPublicaciones = async (req, res) => {
     try {
-        const idCliente = req.clientes._id
+        
         const {
-            descripcion,
-            categoria,
-            productos,
+            idProveedor,
+            idProducto,
+            cantidad,
+            nombreProducto
 
         } = req.body
-        if (!idCliente || !descripcion || !categoria || !productos ) {
-            return res.status(400).json({
-                message: "La informacion proporcionada es incorrecta"
-            })
-        }
+        // if (!idCliente || !descripcion || !categoria || !productos ) {
+        //     return res.status(400).json({
+        //         message: "La informacion proporcionada es incorrecta"
+        //     })
+        // }
 
         const newPublicacion = new Publicacion({
-            idCliente,
-            descripcion,
-            categoria,
-            productos,
+            idProveedor,
+            idProducto,
+            cantidad,
+            nombreProducto,
         })
         const publiRegistrada = await newPublicacion.save()
 
