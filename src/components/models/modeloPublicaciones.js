@@ -24,12 +24,16 @@ const publicacionesSchema = new Schema({
     //     default: true
 
     // },
+    pedidos: {
+        type: Array
+    },
+
     idProveedor: {
-        type: {}
+        type: String
         
     },
     idProducto: {
-        type: {}
+        type: String
         
     },
     cantidad: {

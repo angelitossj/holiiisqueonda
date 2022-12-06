@@ -66,11 +66,7 @@ CtrlPublicaciones.postPublicaciones = async (req, res) => {
     try {
         
         const {
-            idProveedor,
-            idProducto,
-            cantidad,
-            nombreProducto
-
+            pedidos,
         } = req.body
         // if (!idCliente || !descripcion || !categoria || !productos ) {
         //     return res.status(400).json({
@@ -79,10 +75,7 @@ CtrlPublicaciones.postPublicaciones = async (req, res) => {
         // }
 
         const newPublicacion = new Publicacion({
-            idProveedor,
-            idProducto,
-            cantidad,
-            nombreProducto,
+            pedidos
         })
         const publiRegistrada = await newPublicacion.save()
 
