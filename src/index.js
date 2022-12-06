@@ -40,6 +40,10 @@ app.use(require('./components/routes/rutasProductos'))
 app.use(require('./components/routes/rutasPublicaciones'))
 app.use(require('./components/routes/authCliente'))
 
+
+
+
+
 io.on('connection',(socket)=>{
     console.log(socket.id)
    
