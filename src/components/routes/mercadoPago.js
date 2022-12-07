@@ -1,10 +1,10 @@
 const router =require('express').Router()
 
-const {get}=require("../controllers/mercadoPago")
+const {post}=require("../utils/mercadoPago")
 
 
 
-router.get("/mercadoPago",get)
+router.post("/mercadoPago",post)
 
 
 

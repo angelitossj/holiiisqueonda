@@ -19,7 +19,13 @@ const connectDB=require('./conexion')
 
 connectDB()
 
+const mercadopago = require('mercadopago')
+require('dotenv')
 
+
+mercadopago.configure({
+  access_token:''
+})
 
 // configuraciones
 const port=process.env.PORT ||4000;
