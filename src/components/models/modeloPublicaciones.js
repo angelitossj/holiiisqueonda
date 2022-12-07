@@ -44,11 +44,11 @@ const publicacionesSchema = new Schema({
         type: String
         
     },
-    // idProducto: {
-    //     type: [Schema.ObjectId],
-    //     ref: 'producto',
-    //     required: true
-    // }
+    idCliente: {
+        type:Schema.ObjectId,
+        ref:'cliente',
+        
+    }
 
 
 

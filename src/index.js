@@ -39,6 +39,7 @@ app.use(require('./components/routes/authProveedores'))
 app.use(require('./components/routes/rutasProductos'))
 app.use(require('./components/routes/rutasPublicaciones'))
 app.use(require('./components/routes/authCliente'))
+app.use(require('./components/routes/mercadoPago'))
 
 
 

@@ -2,6 +2,7 @@
 const Producto= require('../models/modeloProductos')
 const CtrlMercadoPago={}
 const mercadopago = require("mercadopago");
+const { response } = require('express');
 // Agrega credenciales
 mercadopago.configure({
   access_token: "TEST-6496506201316074-120218-e5d4b272fbd8e964add03499b5978d00-291748207",
@@ -20,7 +21,7 @@ let preference = {
       },
     ],
   };
-  
+
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
@@ -30,3 +31,5 @@ let preference = {
       console.log(error);
     });
 }
+
+module.exports = CtrlMercadoPago
