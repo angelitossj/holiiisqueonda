@@ -1,5 +1,6 @@
 const Producto = require("../models/modeloProductos")
-require('../models/modeloProveedores')
+const mercadopago=
+require('../utils/mercadoPago')
 
 const CtrlProductos = {}
 
@@ -7,6 +8,7 @@ CtrlProductos.getProductos = async (req, res) => {
     try {
         
         const producto = await Producto.find({isActive:true})
+        .populate("idProveedor",["nombreOrazonSocial","telefono"])
         if (!producto.length) {
             return res.status(404).json({
                 message: "no existe ningun producto"
@@ -29,11 +31,16 @@ CtrlProductos.getProductos = async (req, res) => {
 
 
 }
+
+
 CtrlProductos.getProductosCategorias = async (req, res) => {
     try {
+
+      
         const categoria = req.query.categoria
         console.log(categoria)
         const producto = await Producto.find({categoria})
+        .populate("idProveedor",["nombreOrazonSocial","telefono"])
         if (!producto.length) {
             return res.status(404).json({
                 message: "no existe ningun producto"
